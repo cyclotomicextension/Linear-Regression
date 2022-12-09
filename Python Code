@@ -1,0 +1,16 @@
+import numpy as np
+from sklearn import datasets
+data=datasets.load_diabetes()
+x=data.data
+y=data.target
+from sklearn import model_selection
+x_train,x_test,y_train,y_test=model_selection.train_test_split(x,y)
+from sklearn.linear_model import LinearRegression
+algl=LinearRegression()
+algl.fit(x_train,y_train)
+y_pred=algl.predict(x_test)
+def score(y_truth, y_predict):
+  u = ((y_truth - y_predict)**2).sum()
+  v = ((y_truth - y_truth.mean())**2).sum()
+  return (1 - u / v)
+print(score(y_test,y_pred))
